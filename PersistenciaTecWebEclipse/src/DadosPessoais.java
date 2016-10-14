@@ -7,7 +7,7 @@ public class DadosPessoais {
 	private String email;
 	private String senha;
 	private String corDosOlhos;
-	private int numeroMatricula;
+	private String numeroMatricula;
 	private String corCabelo;
 	private String profissao;
 	
@@ -18,7 +18,6 @@ public class DadosPessoais {
 	public String getSexo() {return sexo;}
 	public void setSexo(String sexo) {this.sexo = sexo;}
 
-	
 	public Calendar getNascimento() {return nascimento;}
 	public void setNascimento(Calendar nascimento) {this.nascimento = nascimento;}
 	
@@ -40,10 +39,10 @@ public class DadosPessoais {
 	public void setCorDosOlhos(String corDosOlhos) {
 		this.corDosOlhos = corDosOlhos;
 	}
-	public int getNumeroMatricula() {
+	public String getNumeroMatricula() {
 		return numeroMatricula;
 	}
-	public void setNumeroMatricula(int numeroMatricula) {
+	public void setNumeroMatricula(String numeroMatricula) {
 		this.numeroMatricula = numeroMatricula;
 	}
 	public String getCorCabelo() {
