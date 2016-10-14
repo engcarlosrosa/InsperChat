@@ -27,8 +27,28 @@ public class DAO {
 		}
 	}
 	
-	public void adicionaInformacoesPessoais(InformacoesPessoais InformacaoPessoal){
-		
+	public void adicionaInformacoesPessoais(InformacoesPessoais informacaoPessoal){
+		String sql = "INSERT INTO InformacoesPessoais" + 
+	"(nome, sexo, nascimento, email, senha, corDosOlhos, numeroMatricula, corCabelo, profissao) values (?,?,?,?,?,?,?,?,?)";
+		PreparedStatement stmt;
+		try{
+			stmt = connection.prepareStatement(sql);
+			stmt.setString(1, informacaoPessoal.getNome());
+			stmt.setString(2, informacaoPessoal.getSexo());
+			stmt.setDate(3, new Date(informacaoPessoal.getNascimento().getTimeInMillis()));
+			stmt.setString(4, informacaoPessoal.getEmail());
+			stmt.setString(5, informacaoPessoal.getSenha());
+			stmt.setString(6, informacaoPessoal.getCorDosOlhos());
+			stmt.setString(7, informacaoPessoal.getNumeroMatricula());
+			stmt.setString(8, informacaoPessoal.getCorCabelo());
+			stmt.setString(9, informacaoPessoal.getProfissao());
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	}
 
 }
