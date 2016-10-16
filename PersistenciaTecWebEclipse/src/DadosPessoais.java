@@ -8,9 +8,12 @@ public class DadosPessoais {
 	private String email;
 	private String senha;
 	private String corDosOlhos;
-	private String numeroMatricula;
+	private int numeroMatricula;
 	private String corCabelo;
 	private String profissao;
+	private String nivelDeEntrada;
+	private int rg;
+	private int cpf;
 	
 	public String getNome() {return nome;}
 	public void setNome(String nome) {this.nome = nome;}
@@ -40,10 +43,10 @@ public class DadosPessoais {
 	public void setCorDosOlhos(String corDosOlhos) {
 		this.corDosOlhos = corDosOlhos;
 	}
-	public String getNumeroMatricula() {
+	public int getNumeroMatricula() {
 		return numeroMatricula;
 	}
-	public void setNumeroMatricula(String numeroMatricula) {
+	public void setNumeroMatricula(int numeroMatricula) {
 		this.numeroMatricula = numeroMatricula;
 	}
 	public String getCorCabelo() {
@@ -58,7 +61,25 @@ public class DadosPessoais {
 	public void setProfissao(String profissao) {
 		this.profissao = profissao;
 	}
-	
+	public String getNivelDeEntrada() {
+		return nivelDeEntrada;
+	}
+	public void setNivelDeEntrada(String nivelDeEntrada) {
+		this.nivelDeEntrada = nivelDeEntrada;
+	}
+	public int getRg() {
+		return rg;
+	}
+	public void setRg(int rg) {
+		this.rg = rg;
+	}
+	public int getCpf() {
+		return cpf;
+	}
+	public void setCpf(int cpf) {
+		this.cpf = cpf;
+	}
+
 	
 
 }

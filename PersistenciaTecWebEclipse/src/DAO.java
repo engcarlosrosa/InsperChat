@@ -27,21 +27,24 @@ public class DAO {
 		}
 	}
 	
-	public void adicionaInformacoesPessoais(InformacoesPessoais informacaoPessoal){
-		String sql = "INSERT INTO InformacoesPessoais" + 
-	"(nome, sexo, nascimento, email, senha, corDosOlhos, numeroMatricula, corCabelo, profissao) values (?,?,?,?,?,?,?,?,?)";
+	public void adicionaDadosPessoais(DadosPessoais dadosPessoal){
+		String sql = "INSERT INTO DadosPessoais" + 
+	"(nome, sexo, nascimento, email, senha, corDosOlhos, numeroMatricula, corCabelo, profissao, nivelDeEntrada, rg, cpf) values (?,?,?,?,?,?,?,?,?,?,?,?)";
 		PreparedStatement stmt;
 		try{
 			stmt = connection.prepareStatement(sql);
-			stmt.setString(1, informacaoPessoal.getNome());
-			stmt.setString(2, informacaoPessoal.getSexo());
-			stmt.setDate(3, new Date(informacaoPessoal.getNascimento().getTimeInMillis()));
-			stmt.setString(4, informacaoPessoal.getEmail());
-			stmt.setString(5, informacaoPessoal.getSenha());
-			stmt.setString(6, informacaoPessoal.getCorDosOlhos());
-			stmt.setString(7, informacaoPessoal.getNumeroMatricula());
-			stmt.setString(8, informacaoPessoal.getCorCabelo());
-			stmt.setString(9, informacaoPessoal.getProfissao());
+			stmt.setString(1, dadosPessoal.getNome());
+			stmt.setString(2, dadosPessoal.getSexo());
+			stmt.setDate(3, new Date(dadosPessoal.getNascimento().getTimeInMillis()));
+			stmt.setString(4, dadosPessoal.getEmail());
+			stmt.setString(5, dadosPessoal.getSenha());
+			stmt.setString(6, dadosPessoal.getCorDosOlhos());
+			stmt.setLong(7, dadosPessoal.getNumeroMatricula());
+			stmt.setString(8, dadosPessoal.getCorCabelo());
+			stmt.setString(9, dadosPessoal.getProfissao());
+			stmt.setString(10, dadosPessoal.getNivelDeEntrada());
+			stmt.setInt(11, dadosPessoal.getRg());
+			stmt.setInt(12, dadosPessoal.getCpf());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -49,6 +52,7 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
+	
 	}
 
 
