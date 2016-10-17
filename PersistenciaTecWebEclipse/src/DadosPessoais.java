@@ -1,19 +1,20 @@
 import java.util.Calendar;
 
 public class DadosPessoais {
-
+	
+	private Integer id;
 	private String nome;
 	private String sexo;
 	private Calendar nascimento;
 	private String email;
 	private String senha;
 	private String corDosOlhos;
-	private int numeroMatricula;
+	private Integer numeroMatricula;
 	private String corCabelo;
 	private String profissao;
 	private String nivelDeEntrada;
-	private int rg;
-	private int cpf;
+	private Integer rg;
+	private Integer cpf;
 	
 	public String getNome() {return nome;}
 	public void setNome(String nome) {this.nome = nome;}
@@ -43,10 +44,10 @@ public class DadosPessoais {
 	public void setCorDosOlhos(String corDosOlhos) {
 		this.corDosOlhos = corDosOlhos;
 	}
-	public int getNumeroMatricula() {
+	public Integer getNumeroMatricula() {
 		return numeroMatricula;
 	}
-	public void setNumeroMatricula(int numeroMatricula) {
+	public void setNumeroMatricula(Integer numeroMatricula) {
 		this.numeroMatricula = numeroMatricula;
 	}
 	public String getCorCabelo() {
@@ -67,17 +68,23 @@ public class DadosPessoais {
 	public void setNivelDeEntrada(String nivelDeEntrada) {
 		this.nivelDeEntrada = nivelDeEntrada;
 	}
-	public int getRg() {
+	public Integer getRg() {
 		return rg;
 	}
-	public void setRg(int rg) {
+	public void setRg(Integer rg) {
 		this.rg = rg;
 	}
-	public int getCpf() {
+	public Integer getCpf() {
 		return cpf;
 	}
-	public void setCpf(int cpf) {
+	public void setCpf(Integer cpf) {
 		this.cpf = cpf;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	
