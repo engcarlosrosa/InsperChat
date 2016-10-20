@@ -4,24 +4,25 @@ public class DadosPessoais {
 	
 	private Integer id;
 	private String nome;
-	private String sexo;
+	private String sobrenome;
+	private Integer sexo;
 	private Calendar nascimento;
 	private String email;
 	private String senha;
 	private String corDosOlhos;
-	private Integer numeroMatricula;
+	private String numeroMatricula;
 	private String corCabelo;
 	private String profissao;
 	private String nivelDeEntrada;
-	private Integer rg;
-	private Integer cpf;
+	private String rg;
+	private String cpf;
 	
 	public String getNome() {return nome;}
 	public void setNome(String nome) {this.nome = nome;}
 	
 	
-	public String getSexo() {return sexo;}
-	public void setSexo(String sexo) {this.sexo = sexo;}
+	public Integer getSexo() {return sexo;}
+	public void setSexo(Integer sexo) {this.sexo = sexo;}
 
 	public Calendar getNascimento() {return nascimento;}
 	public void setNascimento(Calendar nascimento) {this.nascimento = nascimento;}
@@ -44,10 +45,10 @@ public class DadosPessoais {
 	public void setCorDosOlhos(String corDosOlhos) {
 		this.corDosOlhos = corDosOlhos;
 	}
-	public Integer getNumeroMatricula() {
+	public String getNumeroMatricula() {
 		return numeroMatricula;
 	}
-	public void setNumeroMatricula(Integer numeroMatricula) {
+	public void setNumeroMatricula(String numeroMatricula) {
 		this.numeroMatricula = numeroMatricula;
 	}
 	public String getCorCabelo() {
@@ -68,16 +69,16 @@ public class DadosPessoais {
 	public void setNivelDeEntrada(String nivelDeEntrada) {
 		this.nivelDeEntrada = nivelDeEntrada;
 	}
-	public Integer getRg() {
+	public String getRg() {
 		return rg;
 	}
-	public void setRg(Integer rg) {
+	public void setRg(String rg) {
 		this.rg = rg;
 	}
-	public Integer getCpf() {
+	public String getCpf() {
 		return cpf;
 	}
-	public void setCpf(Integer cpf) {
+	public void setCpf(String cpf) {
 		this.cpf = cpf;
 	}
 	public Integer getId() {
@@ -85,6 +86,12 @@ public class DadosPessoais {
 	}
 	public void setId(Integer id) {
 		this.id = id;
+	}
+	public String getSobrenome() {
+		return sobrenome;
+	}
+	public void setSobrenome(String sobrenome) {
+		this.sobrenome = sobrenome;
 	}
 
 	
