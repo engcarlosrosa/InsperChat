@@ -7,6 +7,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+
+
 public class InsertPictureToMySql {
 	  public static void main(String[] args) throws Exception, IOException, SQLException {
 		    Class.forName("org.gjt.mm.mysql.Driver");
@@ -17,7 +19,7 @@ public class InsertPictureToMySql {
 		    PreparedStatement ps = null;
 		    try {
 		      conn.setAutoCommit(false);
-		      File file = new File("myPhoto.png");
+		      File file = new File("myPhoto.png"); //Foto
 		      fis = new FileInputStream(file);
 		      ps = conn.prepareStatement(INSERT_PICTURE);
 		      ps.setString(1, "001");
