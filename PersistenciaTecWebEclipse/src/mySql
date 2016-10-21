@@ -22,3 +22,10 @@ dadosPessoal_id INT NOT NULL    REFERENCES DadosPessoais(id),
 data    DATE,
 PRIMARY KEY (id)
 );
+
+
+CREATE TABLE MyPictures(
+id INT PRIMARY KEY,
+name VARCHAR(0),
+photo BLOB,
+);
