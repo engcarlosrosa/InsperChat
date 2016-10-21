@@ -1,0 +1,24 @@
+CREATE TABLE DadosPessoais (
+id  INT NOT NULL    AUTO_INCREMENT,
+nome    VARCHAR(32) NOT NULL,
+sobrenome    VARCHAR(32) NOT NULL,
+sexo  INT NOT NULL,
+nascimento  DATE,
+email    VARCHAR(32) NOT NULL,
+senha    VARCHAR(32) NOT NULL,
+corDosOlhos    VARCHAR(32) NOT NULL,
+numeroMatricula    VARCHAR(32) NOT NULL,
+corCabelo    VARCHAR(32) NOT NULL,
+profissao    VARCHAR(32) NOT NULL,
+nivelDeEntrada    VARCHAR(32) NOT NULL,
+rg    VARCHAR(32) NOT NULL,
+cpf    VARCHAR(32) NOT NULL,
+PRIMARY KEY (id)
+);
+
+CREATE TABLE Acessos (
+id  INT NOT NULL    AUTO_INCREMENT,
+dadosPessoal_id INT NOT NULL    REFERENCES DadosPessoais(id),
+data    DATE,
+PRIMARY KEY (id)
+);

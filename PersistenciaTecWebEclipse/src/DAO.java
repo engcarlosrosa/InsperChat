@@ -1,4 +1,3 @@
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -39,7 +38,7 @@ public class DAO {
 			stmt.setLong(3, dadosPessoal.getSexo());
 			stmt.setDate(4, new Date(dadosPessoal.getNascimento().getTimeInMillis()));
 			stmt.setString(5, dadosPessoal.getEmail());
-			stmt.setString(6, dadosPessoal.getSenha());
+			stmt.setString(6, dadosPessoal.getSenha()); //criptografar
 			stmt.setString(7, dadosPessoal.getCorDosOlhos());
 			stmt.setString(8, dadosPessoal.getNumeroMatricula());
 			stmt.setString(9, dadosPessoal.getCorCabelo());
@@ -87,7 +86,8 @@ public class DAO {
 				dadosPessoal.setEmail(rs.getString("email"));
 				dadosPessoal.setSenha(rs.getString("senha"));
 				dadosPessoal.setCorDosOlhos(rs.getString("corDosOlhos"));
-				dadosPessoal.setNumeroMatricula(rs.getString("numeroDeMatricula"));
+
+				dadosPessoal.setNumeroMatricula(rs.getString("numeroMatricula"));
 				dadosPessoal.setCorCabelo(rs.getString("corCabelo"));
 				dadosPessoal.setProfissao(rs.getString("profissao"));
 				dadosPessoal.setNivelDeEntrada(rs.getString("nivelDeEntrada"));
@@ -128,15 +128,17 @@ public class DAO {
 		return acessos;
 	}
 	
-	public List<AcessosDetalhados> getListaAcessosDetalhados(int num_da_pag){
+	public List<AcessosDetalhados> getListaAcessosDetalhados(){
+
 		List<AcessosDetalhados> acessosDetalhados = new ArrayList<AcessosDetalhados>();
 		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement("SELECT Acessos.id, "
-					+ "Acessos.data, DadosPessoais.matricula,"
+
+					+ "Acessos.data, DadosPessoais.numeroMatricula,"
 					+ "DadosPessoais.nome, DadosPessoais.nivelDeEntrada FROM Acessos "
-					+ "JOIN DadosPessoais ON Acessos.dadosPessoal_id = DadosPessoais.id "
-					+ "LIMIT " + String.valueOf((num_da_pag-1)*5) + ",5");
+					+ "JOIN DadosPessoais ON Acessos.dadosPessoal_id = DadosPessoais.id; ");
+
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()){
 				AcessosDetalhados acessoDetalhado = new AcessosDetalhados();
@@ -144,7 +146,9 @@ public class DAO {
 				Calendar data = Calendar.getInstance();
 				data.setTime(rs.getDate("data"));
 				acessoDetalhado.setData(data);
-				acessoDetalhado.setMatricula(rs.getString("matricula"));
+
+				acessoDetalhado.setMatricula(rs.getString("NumeroMatricula"));
+
 				acessoDetalhado.setNome(rs.getString("nome"));
 				acessoDetalhado.setNivelDeEntrada(rs.getString("nivelDeEntrada"));
 				acessosDetalhados.add(acessoDetalhado);		
@@ -159,7 +163,9 @@ public class DAO {
 	
 	public void alteraDadosPessoais(DadosPessoais dadosPessoal){
 		String sql = "UPDATE DadosPessoais SET" 
-	+ "nome=?, sobrenome=?, sexo=?, nascimento=?, email=?, senha=?, corDosOlhos=?, numeroDeMatricula=?, corCabelo=?, profissao=?, nivelDeEntrada=?, rg=?, cpf=? WHERE ID=?";
+
+	+ "nome=?, sobrenome=?, sexo=?, nascimento=?, email=?, senha=?, corDosOlhos=?, numeroMatricula=?, corCabelo=?, profissao=?, nivelDeEntrada=?, rg=?, cpf=? WHERE ID=?";
+
 		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement(sql);
@@ -204,5 +210,3 @@ public class DAO {
 		}
 	}
 	}
-
-

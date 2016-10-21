@@ -1,3 +1,4 @@
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
@@ -36,7 +37,7 @@ public class CriaDadosPessoais extends HttpServlet {
 		out.println("Cpf: <input type='text' name='cpf'><br>");
 		out.println("<input type='submit' value='Submit'>");
 		out.println("</form>");
-		out.println("<body><html>");
+		out.println("</body></html>");
 	}
 	
 		@Override
@@ -63,6 +64,8 @@ public class CriaDadosPessoais extends HttpServlet {
 			dadosPessoal.setEmail(request.getParameter("email"));
 			dadosPessoal.setSenha(request.getParameter("senha"));
 			dadosPessoal.setCorDosOlhos(request.getParameter("corDosOlhos"));
+			dadosPessoal.setNumeroMatricula(request.getParameter("numeroMatricula"));
+			dadosPessoal.setCorCabelo(request.getParameter("corCabelo"));
 			dadosPessoal.setProfissao(request.getParameter("profissao"));
 			dadosPessoal.setNivelDeEntrada(request.getParameter("nivelDeEntrada"));
 			dadosPessoal.setRg(request.getParameter("rg"));
@@ -77,5 +80,6 @@ public class CriaDadosPessoais extends HttpServlet {
 			
 		}
 	}
+
 
 
