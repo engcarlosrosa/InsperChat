@@ -1,4 +1,3 @@
-
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -29,22 +28,24 @@ public class DAO {
 	
 	public void adicionaDadosPessoais(DadosPessoais dadosPessoal){
 		String sql = "INSERT INTO DadosPessoais" + 
-	"(nome, sexo, nascimento, email, senha, corDosOlhos, numeroMatricula, corCabelo, profissao, nivelDeEntrada, rg, cpf) values (?,?,?,?,?,?,?,?,?,?,?,?)";
-		PreparedStatement stmt;
+	" (nome, sobrenome, sexo, nascimento, email, senha, corDosOlhos,"
+	+ " numeroMatricula, corCabelo, profissao, nivelDeEntrada, rg, cpf) "
+	+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		try{
-			stmt = connection.prepareStatement(sql);
+			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, dadosPessoal.getNome());
-			stmt.setString(2, dadosPessoal.getSexo());
-			stmt.setDate(3, new Date(dadosPessoal.getNascimento().getTimeInMillis()));
-			stmt.setString(4, dadosPessoal.getEmail());
-			stmt.setString(5, dadosPessoal.getSenha());
-			stmt.setString(6, dadosPessoal.getCorDosOlhos());
-			stmt.setLong(7, dadosPessoal.getNumeroMatricula());
-			stmt.setString(8, dadosPessoal.getCorCabelo());
-			stmt.setString(9, dadosPessoal.getProfissao());
-			stmt.setString(10, dadosPessoal.getNivelDeEntrada());
-			stmt.setInt(11, dadosPessoal.getRg());
-			stmt.setInt(12, dadosPessoal.getCpf());
+			stmt.setString(2,dadosPessoal.getSobrenome());
+			stmt.setLong(3, dadosPessoal.getSexo());
+			stmt.setDate(4, new Date(dadosPessoal.getNascimento().getTimeInMillis()));
+			stmt.setString(5, dadosPessoal.getEmail());
+			stmt.setString(6, dadosPessoal.getSenha()); //criptografar
+			stmt.setString(7, dadosPessoal.getCorDosOlhos());
+			stmt.setString(8, dadosPessoal.getNumeroMatricula());
+			stmt.setString(9, dadosPessoal.getCorCabelo());
+			stmt.setString(10, dadosPessoal.getProfissao());
+			stmt.setString(11, dadosPessoal.getNivelDeEntrada());
+			stmt.setString(12, dadosPessoal.getRg());
+			stmt.setString(13, dadosPessoal.getCpf());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -52,6 +53,21 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public void adicionaAcesso(Acessos acesso) {
+		String sql = "INSERT INTO Acessos" + "(dadosPessoal_id, data) values(?,?)";
+		PreparedStatement stmt;
+		try{
+			stmt = connection.prepareStatement(sql);
+			stmt.setInt(1, acesso.getDadosPessoal_id());
+			stmt.setDate(2, new Date(acesso.getData().getTimeInMillis()));
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public List<DadosPessoais> getListaDadosPessoais() {
 		List<DadosPessoais> dadosPessoais = new ArrayList<DadosPessoais>();
 		
@@ -63,18 +79,20 @@ public class DAO {
 				DadosPessoais dadosPessoal = new DadosPessoais();
 				dadosPessoal.setId(rs.getInt("id"));
 				dadosPessoal.setNome(rs.getString("nome"));
-				dadosPessoal.setSexo(rs.getString("sexo"));
+				dadosPessoal.setSobrenome(rs.getString("sobrenome"));
+				dadosPessoal.setSexo(rs.getInt("sexo"));
 				Calendar data = Calendar.getInstance();
 				data.setTime(rs.getDate("nascimento"));
 				dadosPessoal.setEmail(rs.getString("email"));
 				dadosPessoal.setSenha(rs.getString("senha"));
 				dadosPessoal.setCorDosOlhos(rs.getString("corDosOlhos"));
-				dadosPessoal.setNumeroMatricula(rs.getInt("numeroDeMatricula"));
+				dadosPessoal.setNumeroMatricula(rs.getString("numeroDeMatricula"));
 				dadosPessoal.setCorCabelo(rs.getString("corCabelo"));
 				dadosPessoal.setProfissao(rs.getString("profissao"));
 				dadosPessoal.setNivelDeEntrada(rs.getString("nivelDeEntrada"));
-				dadosPessoal.setRg(rs.getInt("rg"));
-				dadosPessoal.setCpf(rs.getInt("cpf"));
+				dadosPessoal.setRg(rs.getString("rg"));
+				dadosPessoal.setCpf(rs.getString("cpf"));
+				dadosPessoais.add(dadosPessoal);
 			}
 			rs.close();
 			stmt.close();
@@ -85,24 +103,78 @@ public class DAO {
 		return dadosPessoais;
 	}
 	
+	public List<Acessos> getListaAcessos() {
+		List<Acessos> acessos = new ArrayList<Acessos>();
+		PreparedStatement stmt;
+		try {
+			stmt = connection.prepareStatement("SELECT * FROM Acessos");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				Acessos acesso = new Acessos();
+				acesso.setId(rs.getInt("id"));
+				acesso.setDadosPessoal_id(rs.getInt("dadosPessoal_id"));
+				Calendar data = Calendar.getInstance();
+				data.setTime(rs.getDate("data"));
+				acesso.setData(data);
+				acessos.add(acesso);
+			}
+			rs.close();
+			stmt.close();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		
+		return acessos;
+	}
+	
+	public List<AcessosDetalhados> getListaAcessosDetalhados(int num_da_pag){
+		List<AcessosDetalhados> acessosDetalhados = new ArrayList<AcessosDetalhados>();
+		PreparedStatement stmt;
+		try {
+			stmt = connection.prepareStatement("SELECT Acessos.id, "
+					+ "Acessos.data, DadosPessoais.matricula,"
+					+ "DadosPessoais.nome, DadosPessoais.nivelDeEntrada FROM Acessos "
+					+ "JOIN DadosPessoais ON Acessos.dadosPessoal_id = DadosPessoais.id "
+					+ "LIMIT " + String.valueOf((num_da_pag-1)*5) + ",5");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()){
+				AcessosDetalhados acessoDetalhado = new AcessosDetalhados();
+				acessoDetalhado.setId(rs.getInt("id"));
+				Calendar data = Calendar.getInstance();
+				data.setTime(rs.getDate("data"));
+				acessoDetalhado.setData(data);
+				acessoDetalhado.setMatricula(rs.getString("matricula"));
+				acessoDetalhado.setNome(rs.getString("nome"));
+				acessoDetalhado.setNivelDeEntrada(rs.getString("nivelDeEntrada"));
+				acessosDetalhados.add(acessoDetalhado);		
+			}
+			rs.close();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return acessosDetalhados;
+	}
+	
 	public void alteraDadosPessoais(DadosPessoais dadosPessoal){
 		String sql = "UPDATE DadosPessoais SET" 
-	+ "nome=?, sexo=?, nascimento=?, email=?, senha=?, corDosOlhos=?, numeroDeMatricula=?, corCabelo=?, profissao=?, nivelDeEntrada=?, rg=?, cpf=? WHERE ID=?";
+	+ "nome=?, sobrenome=?, sexo=?, nascimento=?, email=?, senha=?, corDosOlhos=?, numeroDeMatricula=?, corCabelo=?, profissao=?, nivelDeEntrada=?, rg=?, cpf=? WHERE ID=?";
 		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, dadosPessoal.getNome());
-			stmt.setString(2, dadosPessoal.getSexo());
+			stmt.setString(2, dadosPessoal.getSobrenome());
+			stmt.setInt(2, dadosPessoal.getSexo());
 			stmt.setDate(3, new Date(dadosPessoal.getNascimento().getTimeInMillis()));
 			stmt.setString(4, dadosPessoal.getEmail());
 			stmt.setString(5, dadosPessoal.getSenha());
 			stmt.setString(5, dadosPessoal.getCorDosOlhos());
-			stmt.setInt(7, dadosPessoal.getNumeroMatricula());
+			stmt.setString(7, dadosPessoal.getNumeroMatricula());
 			stmt.setString(8,dadosPessoal.getCorCabelo());
 			stmt.setString(9, dadosPessoal.getProfissao());
 			stmt.setString(10, dadosPessoal.getNivelDeEntrada());
-			stmt.setInt(11, dadosPessoal.getRg());
-			stmt.setInt(12, dadosPessoal.getCpf());
+			stmt.setString(11, dadosPessoal.getRg());
+			stmt.setString(12, dadosPessoal.getCpf());
 			stmt.setInt(13, dadosPessoal.getId());
 			stmt.execute();
 			stmt.close();
@@ -110,6 +182,24 @@ public class DAO {
 				e.printStackTrace();
 			}
 	}
+	
+	public void removeDadosPessoais(Integer id){
+		PreparedStatement stmt;
+		try {
+			stmt = connection.prepareStatement("DELETE FROM DadosPessoais WHERE id=?");
+			stmt.setLong(1, id);
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
-
-
+	
+	public void close() {
+		try {
+			connection.close();
+		} catch (SQLException e){
+			e.printStackTrace();
+		}
+	}
+	}
