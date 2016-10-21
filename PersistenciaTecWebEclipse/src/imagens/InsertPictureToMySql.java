@@ -19,7 +19,7 @@ public class InsertPictureToMySql {
 		    PreparedStatement ps = null;
 		    try {
 		      conn.setAutoCommit(false);
-		      File file = new File("myPhoto.png"); //Foto
+		      File file = new File("myPhoto.png"); //
 		      fis = new FileInputStream(file);
 		      ps = conn.prepareStatement(INSERT_PICTURE);
 		      ps.setString(1, "001");
@@ -33,4 +33,4 @@ public class InsertPictureToMySql {
 		    }
 		  }
 		}
-}
+
