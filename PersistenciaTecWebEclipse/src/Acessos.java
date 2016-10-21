@@ -25,5 +25,4 @@ public class Acessos {
 		this.data = data;
 	}
 
-
 }
