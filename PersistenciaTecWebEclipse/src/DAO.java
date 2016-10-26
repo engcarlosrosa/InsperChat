@@ -30,7 +30,7 @@ public class DAO {
 		String sql = "INSERT INTO DadosPessoais" + 
 	" (nome, sobrenome, sexo, nascimento, email, senha, corDosOlhos,"
 	+ " numeroMatricula, corCabelo, profissao, nivelDeEntrada, rg, cpf) "
-	+ "values (?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	+ "values (?,?,?,?,?,MD5(?),?,?,?,?,?,MD5(?),MD5(?))";
 		try{
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, dadosPessoal.getNome());
@@ -164,7 +164,9 @@ public class DAO {
 	public void alteraDadosPessoais(DadosPessoais dadosPessoal){
 		String sql = "UPDATE DadosPessoais SET" 
 
-	+ "nome=?, sobrenome=?, sexo=?, nascimento=?, email=?, senha=?, corDosOlhos=?, numeroMatricula=?, corCabelo=?, profissao=?, nivelDeEntrada=?, rg=?, cpf=? WHERE ID=?";
+	+ "nome=?, sobrenome=?, sexo=?, nascimento=?, email=?, senha=MD5(?), corDosOlhos=?, "
+	+ "numeroMatricula=?, corCabelo=?, profissao=?,"
+	+ " nivelDeEntrada=?, rg=MD5(?), cpf=MD5(?) WHERE ID=?";
 
 		PreparedStatement stmt;
 		try {
@@ -209,4 +211,33 @@ public class DAO {
 			e.printStackTrace();
 		}
 	}
+	
+	public int checaLogin(String senha, String email_inserido){
+		
+		String email = null;
+		
+		PreparedStatement stmt;
+		try {
+			stmt = connection.prepareStatement("SELECT nome FROM DadosPessoais WHERE senha = md5(%password)");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				email = rs.getString("email");
+
+			}
+			rs.close();
+			stmt.close();
+		}catch (SQLException e){
+			e.printStackTrace();
+
+			
+		}
+		
+		if (email.equals(email_inserido)){
+			return -1;
+		}
+		else{
+			return 0;
+		}
+		
 	}
+}
