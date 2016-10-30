@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.io.FileWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
+import org.json.simple.JSONObject;
 
 @WebServlet("/jsonAcesso")
 public class JsonAcesso extends HttpServlet{
@@ -19,8 +21,18 @@ public class JsonAcesso extends HttpServlet{
 		
 		List<AcessosDetalhados> acessoDetalhado = dao.getListaAcessosDetalhados();
 
-		
 		String json = new Gson().toJson(acessoDetalhado);
+		FileWriter writeFile = null;
+		
+		try{
+			writeFile = new FileWriter("acesso.json");
+			writeFile.write(json);
+			writeFile.close();
+		} catch(IOException e){
+			e.printStackTrace();
+		}
+		
+		
 		response.getWriter().write(json);
 		}
 	}
