@@ -128,6 +128,39 @@ public class DAO {
 		return acessos;
 	}
 	
+	public DadosPessoais getDadosPessoais() {
+		DadosPessoais dadosPessoais = new DadosPessoais();
+		PreparedStatement stmt;
+		try {
+			stmt = connection.prepareStatement("SELECT * FROM Dados pessoais WHERE id=?");
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				
+				dadosPessoais.setId(rs.getInt("id"));
+				dadosPessoais.setNome(rs.getString("nome"));
+				dadosPessoais.setSobrenome(rs.getString("sobrenome"));
+				dadosPessoais.setSexo(rs.getInt("sexo"));
+				Calendar dataNascimento = Calendar.getInstance();
+				dataNascimento.setTime(rs.getDate("nascimento"));
+				dadosPessoais.setNascimento(dataNascimento);
+				dadosPessoais.setEmail(rs.getString("email"));
+				dadosPessoais.setSenha(rs.getString("senha"));
+				dadosPessoais.setCorDosOlhos(rs.getString("corDosOlhos"));
+				dadosPessoais.setNumeroMatricula(rs.getString("numeroMatricula"));
+				dadosPessoais.setCorCabelo(rs.getString("corCabelo"));
+				dadosPessoais.setProfissao(rs.getString("profissao"));
+				dadosPessoais.setNivelDeEntrada(rs.getString("nivelDeEntrada"));
+				dadosPessoais.setRg(rs.getString("rg"));
+				dadosPessoais.setCpf(rs.getString("cpf"));
+			}
+			rs.close();
+			stmt.close();
+		}catch (SQLException e){
+			e.printStackTrace();
+		}
+		return dadosPessoais;
+	}
+	
 	public List<AcessosDetalhados> getListaAcessosDetalhados(){
 
 		List<AcessosDetalhados> acessosDetalhados = new ArrayList<AcessosDetalhados>();
