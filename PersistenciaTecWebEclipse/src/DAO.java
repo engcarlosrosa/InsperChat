@@ -247,17 +247,36 @@ public class DAO {
 		}
 	}
 	
-	public int checaLogin(String senha, String email_inserido){
-		
-		String senha_dado = null;
+	public DadosPessoais checaLogin(String senha, String email){
+
+		DadosPessoais dadosPessoais = new DadosPessoais();
 		
 		PreparedStatement stmt;
+		
+		
 		try {
-			stmt = connection.prepareStatement("SELECT senha FROM DadosPessoais WHERE email = "+ email_inserido);
+			stmt = connection.prepareStatement("SELECT * FROM DadosPessoais WHERE email=? and senha = md5(?)");
+			stmt.setString(1,email);
+			stmt.setString(2,senha);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				
-				senha_dado = rs.getString("MD5(senha)");
+				dadosPessoais.setId(rs.getInt("id"));
+				dadosPessoais.setNome(rs.getString("nome"));
+				dadosPessoais.setSobrenome(rs.getString("sobrenome"));
+				dadosPessoais.setSexo(rs.getInt("sexo"));
+				Calendar dataNascimento = Calendar.getInstance();
+				dataNascimento.setTime(rs.getDate("nascimento"));
+				dadosPessoais.setNascimento(dataNascimento);
+				dadosPessoais.setEmail(rs.getString("email"));
+				dadosPessoais.setSenha(rs.getString("senha"));
+				dadosPessoais.setCorDosOlhos(rs.getString("corDosOlhos"));
+				dadosPessoais.setNumeroMatricula(rs.getString("numeroMatricula"));
+				dadosPessoais.setCorCabelo(rs.getString("corCabelo"));
+				dadosPessoais.setProfissao(rs.getString("profissao"));
+				dadosPessoais.setNivelDeEntrada(rs.getString("nivelDeEntrada"));
+				dadosPessoais.setRg(rs.getString("rg"));
+				dadosPessoais.setCpf(rs.getString("cpf"));
 
 			}
 			rs.close();
@@ -268,14 +287,7 @@ public class DAO {
 	
 		}
 		
-		if (senha_dado.equals(senha)){
-			
-			return -1;
-		}
-		else{
-			
-			return 0;
-		}
+		return dadosPessoais;
 		
 	}
 }
