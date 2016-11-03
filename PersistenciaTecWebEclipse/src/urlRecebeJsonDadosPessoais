@@ -1,0 +1,1 @@
+http://localhost:8080/PersistenciaTecWebEclipse/recebeJsonDadosPessoais?nome=%22Joao%22&sobrenome=%22Pedro%22&sexo=0&nascimento=06-04-1994&email=%22jp%22&senha=%221234%22&corDosOlhos=%22castanhos%22&numeroMatricula=%22101024%22&corCabelo=%22castanhos%22&profissao=%22engenheiro%22&nivelDeEntrada=%22estudante%22&rg=%2212345%22&cpf=%2254321%22

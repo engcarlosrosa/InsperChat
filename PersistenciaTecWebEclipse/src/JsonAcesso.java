@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.io.FileWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -22,18 +21,8 @@ public class JsonAcesso extends HttpServlet{
 		
 		List<AcessosDetalhados> acessoDetalhado = dao.getListaAcessosDetalhados();
 
+		
 		String json = new Gson().toJson(acessoDetalhado);
-		FileWriter writeFile = null;
-		
-		try{
-			writeFile = new FileWriter("acesso.json");
-			writeFile.write(json);
-			writeFile.close();
-		} catch(IOException e){
-			e.printStackTrace();
-		}
-		
-		
 		response.getWriter().write(json);
 		}
 	}

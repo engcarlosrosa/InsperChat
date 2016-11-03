@@ -38,7 +38,7 @@ public class DAO {
 			stmt.setLong(3, dadosPessoal.getSexo());
 			stmt.setDate(4, new Date(dadosPessoal.getNascimento().getTimeInMillis()));
 			stmt.setString(5, dadosPessoal.getEmail());
-			stmt.setString(6, dadosPessoal.getSenha()); //criptografar
+			stmt.setString(6, dadosPessoal.getSenha());
 			stmt.setString(7, dadosPessoal.getCorDosOlhos());
 			stmt.setString(8, dadosPessoal.getNumeroMatricula());
 			stmt.setString(9, dadosPessoal.getCorCabelo());
@@ -249,14 +249,15 @@ public class DAO {
 	
 	public int checaLogin(String senha, String email_inserido){
 		
-		String email = null;
+		String senha_dado = null;
 		
 		PreparedStatement stmt;
 		try {
-			stmt = connection.prepareStatement("SELECT nome FROM DadosPessoais WHERE senha = md5(%password)");
+			stmt = connection.prepareStatement("SELECT senha FROM DadosPessoais WHERE email = "+ email_inserido);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				email = rs.getString("email");
+				
+				senha_dado = rs.getString("MD5(senha)");
 
 			}
 			rs.close();
@@ -264,13 +265,15 @@ public class DAO {
 		}catch (SQLException e){
 			e.printStackTrace();
 
-			
+	
 		}
 		
-		if (email.equals(email_inserido)){
+		if (senha_dado.equals(senha)){
+			
 			return -1;
 		}
 		else{
+			
 			return 0;
 		}
 		
