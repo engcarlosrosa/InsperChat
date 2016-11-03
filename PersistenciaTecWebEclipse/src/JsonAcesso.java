@@ -8,8 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
-import org.json.simple.JSONObject;
 
+
+@SuppressWarnings("serial")
 @WebServlet("/jsonAcesso")
 public class JsonAcesso extends HttpServlet{
 	

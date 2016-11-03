@@ -128,11 +128,13 @@ public class DAO {
 		return acessos;
 	}
 	
-	public DadosPessoais getDadosPessoais() {
+	public DadosPessoais getDadosPessoais(Integer id) {
 		DadosPessoais dadosPessoais = new DadosPessoais();
 		PreparedStatement stmt;
+		
 		try {
-			stmt = connection.prepareStatement("SELECT * FROM Dados pessoais WHERE id=?");
+			stmt = connection.prepareStatement("SELECT * FROM DadosPessoais WHERE id=?");
+			stmt.setInt(1, id);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				
