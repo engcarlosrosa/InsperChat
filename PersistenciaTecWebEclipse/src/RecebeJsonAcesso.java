@@ -7,35 +7,41 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import com.google.gson.Gson;
+
 /**
  * Servlet implementation class RecebeJsonAcesso
  */
 @WebServlet("/RecebeJsonAcesso")
 public class RecebeJsonAcesso extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public RecebeJsonAcesso() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	protected void service (HttpServletRequest request, 
+							HttpServletResponse response) 
+								throws ServletException, IOException {
+		DAO dao = new DAO();
+		Acessos acesso = new Acessos();
+		JSONObject jsonObject;
+		JSONParser parser = new JSONParser();
+		
+		try {
+			jsonObject = (JSONObject) parser.parse(request.getParameter("json"));
+			acesso.setDadosPessoal_id((String) jsonObject.get("pessoa_id"));
+			dao.adicionaAcesso(acesso);
+			System.out.println(dao.getListaAcessosDetalhados());
+			String json = new Gson().toJson(dao.getListaAcessosDetalhados());
+			response.getWriter().write(json);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		dao.close();
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
 
 }

@@ -51,12 +51,11 @@ public class DAO {
 	}
 	
 	public void adicionaAcesso(Acessos acesso) {
-		String sql = "INSERT INTO Acessos" + "(dadosPessoal_id, data) values(?,?)";
+		String sql = "INSERT INTO Acessos" + "(dadosPessoal_id) values(?)";
 		PreparedStatement stmt;
 		try{
 			stmt = connection.prepareStatement(sql);
-			stmt.setInt(1, acesso.getDadosPessoal_id());
-			stmt.setDate(2, new Date(acesso.getData().getTimeInMillis()));
+			stmt.setString(1, acesso.getDadosPessoal_id());
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -105,7 +104,7 @@ public class DAO {
 			while (rs.next()) {
 				Acessos acesso = new Acessos();
 				acesso.setId(rs.getInt("id"));
-				acesso.setDadosPessoal_id(rs.getInt("dadosPessoal_id"));
+				acesso.setDadosPessoal_id(rs.getString("dadosPessoal_id"));
 				Calendar data = Calendar.getInstance();
 				data.setTime(rs.getDate("data"));
 				acesso.setData(data);
@@ -171,7 +170,7 @@ public class DAO {
 				acessoDetalhado.setMatricula(rs.getString("NumeroMatricula"));
 
 				acessoDetalhado.setNome(rs.getString("nome"));
-				acessoDetalhado.setNivelDeEntrada(rs.getString("nivelDeEntrada"));
+				//acessoDetalhado.setNivelDeEntrada(rs.getString("nivelDeEntrada"));
 				acessosDetalhados.add(acessoDetalhado);		
 			}
 			rs.close();
