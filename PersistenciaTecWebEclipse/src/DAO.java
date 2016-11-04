@@ -30,7 +30,7 @@ public class DAO {
 		String sql = "INSERT INTO DadosPessoais" + 
 	" (nome, sobrenome, sexo, nascimento, email, senha, corDosOlhos,"
 	+ " numeroMatricula, corCabelo, profissao, nivelDeEntrada, rg, cpf) "
-	+ "values (?,?,?,?,?,MD5(?),?,?,?,?,?,MD5(?),MD5(?))";
+	+ "values (?,?,?,?,?,MD5(?),?,?,?,?,?,?,?)";
 		try{
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, dadosPessoal.getNome());
@@ -199,9 +199,9 @@ public class DAO {
 	public void alteraDadosPessoais(DadosPessoais dadosPessoal){
 		String sql = "UPDATE DadosPessoais SET" 
 
-	+ "nome=?, sobrenome=?, sexo=?, nascimento=?, email=?, senha=MD5(?), corDosOlhos=?, "
+	+ "nome=?, sobrenome=?, sexo=?, nascimento=?, email=?, senha=?, corDosOlhos=?, "
 	+ "numeroMatricula=?, corCabelo=?, profissao=?,"
-	+ " nivelDeEntrada=?, rg=MD5(?), cpf=MD5(?) WHERE ID=?";
+	+ " nivelDeEntrada=?, rg=?, cpf=? WHERE ID=?";
 
 		PreparedStatement stmt;
 		try {
