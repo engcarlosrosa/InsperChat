@@ -28,24 +28,20 @@ public class DAO {
 	
 	public void adicionaDadosPessoais(DadosPessoais dadosPessoal){
 		String sql = "INSERT INTO DadosPessoais" + 
-	" (nome, sobrenome, sexo, nascimento, email, senha, corDosOlhos,"
-	+ " numeroMatricula, corCabelo, profissao, nivelDeEntrada, rg, cpf) "
-	+ "values (?,?,?,?,?,MD5(?),?,?,?,?,?,?,?)";
+	" (nome, sobrenome, sexo, email, senha,"
+	+ " numeroMatricula, profissao, rg) "
+	+ "values (?,?,?,?,MD5(?),?,?,?)";
 		try{
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, dadosPessoal.getNome());
 			stmt.setString(2,dadosPessoal.getSobrenome());
 			stmt.setString(3, dadosPessoal.getSexo());
-			stmt.setDate(4, new Date(dadosPessoal.getNascimento().getTimeInMillis()));
-			stmt.setString(5, dadosPessoal.getEmail());
-			stmt.setString(6, dadosPessoal.getSenha());
-			stmt.setString(7, dadosPessoal.getCorDosOlhos());
-			stmt.setString(8, dadosPessoal.getNumeroMatricula());
-			stmt.setString(9, dadosPessoal.getCorCabelo());
-			stmt.setString(10, dadosPessoal.getProfissao());
-			stmt.setString(11, dadosPessoal.getNivelDeEntrada());
-			stmt.setString(12, dadosPessoal.getRg());
-			stmt.setString(13, dadosPessoal.getCpf());
+			stmt.setString(4, dadosPessoal.getEmail());
+			stmt.setString(5, dadosPessoal.getSenha());
+			stmt.setString(6, dadosPessoal.getNumeroMatricula());
+			stmt.setString(7, dadosPessoal.getProfissao());
+			stmt.setString(8, dadosPessoal.getRg());
+			
 			stmt.execute();
 			stmt.close();
 		} catch (SQLException e) {
@@ -85,14 +81,10 @@ public class DAO {
 				data.setTime(rs.getDate("nascimento"));
 				dadosPessoal.setEmail(rs.getString("email"));
 				dadosPessoal.setSenha(rs.getString("senha"));
-				dadosPessoal.setCorDosOlhos(rs.getString("corDosOlhos"));
-
 				dadosPessoal.setNumeroMatricula(rs.getString("numeroMatricula"));
-				dadosPessoal.setCorCabelo(rs.getString("corCabelo"));
 				dadosPessoal.setProfissao(rs.getString("profissao"));
-				dadosPessoal.setNivelDeEntrada(rs.getString("nivelDeEntrada"));
 				dadosPessoal.setRg(rs.getString("rg"));
-				dadosPessoal.setCpf(rs.getString("cpf"));
+		
 				dadosPessoais.add(dadosPessoal);
 			}
 			rs.close();
@@ -142,18 +134,12 @@ public class DAO {
 				dadosPessoais.setNome(rs.getString("nome"));
 				dadosPessoais.setSobrenome(rs.getString("sobrenome"));
 				dadosPessoais.setSexo(rs.getString("sexo"));
-				Calendar dataNascimento = Calendar.getInstance();
-				dataNascimento.setTime(rs.getDate("nascimento"));
-				dadosPessoais.setNascimento(dataNascimento);
 				dadosPessoais.setEmail(rs.getString("email"));
 				dadosPessoais.setSenha(rs.getString("senha"));
-				dadosPessoais.setCorDosOlhos(rs.getString("corDosOlhos"));
 				dadosPessoais.setNumeroMatricula(rs.getString("numeroMatricula"));
-				dadosPessoais.setCorCabelo(rs.getString("corCabelo"));
 				dadosPessoais.setProfissao(rs.getString("profissao"));
-				dadosPessoais.setNivelDeEntrada(rs.getString("nivelDeEntrada"));
 				dadosPessoais.setRg(rs.getString("rg"));
-				dadosPessoais.setCpf(rs.getString("cpf"));
+				
 			}
 			rs.close();
 			stmt.close();
@@ -171,7 +157,7 @@ public class DAO {
 			stmt = connection.prepareStatement("SELECT Acessos.id, "
 
 					+ "Acessos.data, DadosPessoais.numeroMatricula,"
-					+ "DadosPessoais.nome, DadosPessoais.nivelDeEntrada FROM Acessos "
+					+ "DadosPessoais.nome FROM Acessos "
 					+ "JOIN DadosPessoais ON Acessos.dadosPessoal_id = DadosPessoais.id; ");
 
 			ResultSet rs = stmt.executeQuery();
@@ -199,27 +185,23 @@ public class DAO {
 	public void alteraDadosPessoais(DadosPessoais dadosPessoal){
 		String sql = "UPDATE DadosPessoais SET" 
 
-	+ "nome=?, sobrenome=?, sexo=?, nascimento=?, email=?, senha=?, corDosOlhos=?, "
-	+ "numeroMatricula=?, corCabelo=?, profissao=?,"
-	+ " nivelDeEntrada=?, rg=?, cpf=? WHERE ID=?";
+	+ "nome=?, sobrenome=?, sexo=?, email=?, senha=?, "
+	+ "numeroMatricula=?, profissao=?,"
+	+  "rg=?, cpf=? WHERE ID=?";
 
 		PreparedStatement stmt;
 		try {
 			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, dadosPessoal.getNome());
 			stmt.setString(2, dadosPessoal.getSobrenome());
-			stmt.setString(2, dadosPessoal.getSexo());
-			stmt.setDate(3, new Date(dadosPessoal.getNascimento().getTimeInMillis()));
+			stmt.setString(3, dadosPessoal.getSexo());
 			stmt.setString(4, dadosPessoal.getEmail());
 			stmt.setString(5, dadosPessoal.getSenha());
-			stmt.setString(5, dadosPessoal.getCorDosOlhos());
-			stmt.setString(7, dadosPessoal.getNumeroMatricula());
-			stmt.setString(8,dadosPessoal.getCorCabelo());
-			stmt.setString(9, dadosPessoal.getProfissao());
-			stmt.setString(10, dadosPessoal.getNivelDeEntrada());
-			stmt.setString(11, dadosPessoal.getRg());
-			stmt.setString(12, dadosPessoal.getCpf());
+			stmt.setString(6, dadosPessoal.getNumeroMatricula());
+			stmt.setString(7, dadosPessoal.getProfissao());
+			stmt.setString(8, dadosPessoal.getRg());
 			stmt.setInt(13, dadosPessoal.getId());
+			
 			stmt.execute();
 			stmt.close();
 			} catch (SQLException e) {
@@ -230,7 +212,7 @@ public class DAO {
 	public void removeDadosPessoais(Integer id){
 		PreparedStatement stmt;
 		try {
-			stmt = connection.prepareStatement("DELETE FROM DadosPessoais WHERE id=?");
+			stmt = connection.prepareStatement("DELETE * FROM DadosPessoais WHERE id=?");
 			stmt.setLong(1, id);
 			stmt.execute();
 			stmt.close();
@@ -265,18 +247,12 @@ public class DAO {
 				dadosPessoais.setNome(rs.getString("nome"));
 				dadosPessoais.setSobrenome(rs.getString("sobrenome"));
 				dadosPessoais.setSexo(rs.getString("sexo"));
-				Calendar dataNascimento = Calendar.getInstance();
-				dataNascimento.setTime(rs.getDate("nascimento"));
-				dadosPessoais.setNascimento(dataNascimento);
 				dadosPessoais.setEmail(rs.getString("email"));
 				dadosPessoais.setSenha(rs.getString("senha"));
-				dadosPessoais.setCorDosOlhos(rs.getString("corDosOlhos"));
 				dadosPessoais.setNumeroMatricula(rs.getString("numeroMatricula"));
-				dadosPessoais.setCorCabelo(rs.getString("corCabelo"));
 				dadosPessoais.setProfissao(rs.getString("profissao"));
-				dadosPessoais.setNivelDeEntrada(rs.getString("nivelDeEntrada"));
 				dadosPessoais.setRg(rs.getString("rg"));
-				dadosPessoais.setCpf(rs.getString("cpf"));
+				
 
 			}
 			rs.close();

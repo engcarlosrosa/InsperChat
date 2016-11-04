@@ -3,16 +3,12 @@ id  INT NOT NULL    AUTO_INCREMENT,
 nome    VARCHAR(32) NOT NULL,
 sobrenome    VARCHAR(32) NOT NULL,
 sexo  VARCHAR(1) NOT NULL,
-nascimento  DATE,
 email    VARCHAR(32) NOT NULL UNIQUE,
 senha    VARCHAR(32) NOT NULL,
-corDosOlhos    VARCHAR(32) NOT NULL,
 numeroMatricula    VARCHAR(32) NOT NULL,
-corCabelo    VARCHAR(32) NOT NULL,
 profissao    VARCHAR(32) NOT NULL,
-nivelDeEntrada    VARCHAR(32) NOT NULL,
 rg    VARCHAR(32) NOT NULL,
-cpf    VARCHAR(32) NOT NULL,
+
 PRIMARY KEY (id)
 );
 

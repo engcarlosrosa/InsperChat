@@ -59,18 +59,12 @@ public class CriaDadosPessoais extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			Calendar dataNascimento = Calendar.getInstance();
-			dataNascimento.setTime(data);
-			dadosPessoal.setNascimento(dataNascimento);
+			
 			dadosPessoal.setEmail(request.getParameter("email"));
 			dadosPessoal.setSenha(request.getParameter("senha"));
-			dadosPessoal.setCorDosOlhos(request.getParameter("corDosOlhos"));
 			dadosPessoal.setNumeroMatricula(request.getParameter("numeroMatricula"));
-			dadosPessoal.setCorCabelo(request.getParameter("corCabelo"));
 			dadosPessoal.setProfissao(request.getParameter("profissao"));
-			dadosPessoal.setNivelDeEntrada(request.getParameter("nivelDeEntrada"));
 			dadosPessoal.setRg(request.getParameter("rg"));
-			dadosPessoal.setCpf(request.getParameter("cpf"));
 			dao.adicionaDadosPessoais(dadosPessoal);
 			PrintWriter out= response.getWriter();
 			out.println("<html><body>");

@@ -33,24 +33,11 @@ public class RecebeJsonDadosPessoais extends HttpServlet{
 			dadosPessoal.setNome((String) jsonObject.get("nome"));
 			dadosPessoal.setSobrenome((String) jsonObject.get("sobrenome"));
 			dadosPessoal.setSexo((String) jsonObject.get("sexo"));
-			String nascimento = (String) jsonObject.get("nascimento");
-			Date data = null;
-			try{
-				data = new SimpleDateFormat("yyyy-MM-dd").parse(nascimento);			
-			} catch (ParseException e){
-				e.printStackTrace();			
-			}
-			Calendar dataNascimento = Calendar.getInstance();
-			dadosPessoal.setNascimento(dataNascimento);
 			dadosPessoal.setEmail((String) jsonObject.get("email"));
 			dadosPessoal.setSenha((String) jsonObject.get("senha"));
-			dadosPessoal.setCorDosOlhos((String) jsonObject.get("corDosOlhos"));
 			dadosPessoal.setNumeroMatricula((String) jsonObject.get("numeroMatricula"));
-			dadosPessoal.setCorCabelo((String) jsonObject.get("corCabelo"));
 			dadosPessoal.setProfissao((String) jsonObject.get("profissao"));
-			dadosPessoal.setNivelDeEntrada((String) jsonObject.get("nivelDeEntrada"));
 			dadosPessoal.setRg((String) jsonObject.get("rg"));
-			dadosPessoal.setCpf((String) jsonObject.get("cpf"));
 			dao.adicionaDadosPessoais(dadosPessoal);
 			//String json = new Gson().toJson(dao.adicionaDadosPessoais(dadosPessoal));
 			//System.out.println(json);
