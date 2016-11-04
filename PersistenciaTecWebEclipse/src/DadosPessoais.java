@@ -3,7 +3,7 @@ import java.util.Calendar;
 public class DadosPessoais {
 	
 	private Integer id;
-	private String nome;
+	String nome;
 	private String sobrenome;
 	private String sexo;
 	private Calendar nascimento;
