@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/recebeJsonDadosPessoais")
+@WebServlet("/RecebeJsonDadosPessoais")
 public class RecebeJsonDadosPessoais extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	public void service (HttpServletRequest request,
@@ -21,7 +21,7 @@ public class RecebeJsonDadosPessoais extends HttpServlet{
 		DadosPessoais dadosPessoal = new DadosPessoais();
 		dadosPessoal.setNome(request.getParameter("nome"));
 		dadosPessoal.setSobrenome(request.getParameter("sobrenome"));
-		dadosPessoal.setSexo(Integer.valueOf(request.getParameter("sexo")));
+		dadosPessoal.setSexo(request.getParameter("sexo"));
 		String nascimento = request.getParameter("nascimento");
 		@SuppressWarnings("unused")
 		Date data = null;

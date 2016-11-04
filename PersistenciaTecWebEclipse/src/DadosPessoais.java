@@ -5,7 +5,7 @@ public class DadosPessoais {
 	private Integer id;
 	private String nome;
 	private String sobrenome;
-	private Integer sexo;
+	private String sexo;
 	private Calendar nascimento;
 	private String email;
 	private String senha;
@@ -21,8 +21,8 @@ public class DadosPessoais {
 	public void setNome(String nome) {this.nome = nome;}
 	
 	
-	public Integer getSexo() {return sexo;}
-	public void setSexo(Integer sexo) {this.sexo = sexo;}
+	public String getSexo() {return sexo;}
+	public void setSexo(String sexo) {this.sexo = sexo;}
 
 	public Calendar getNascimento() {return nascimento;}
 	public void setNascimento(Calendar nascimento) {this.nascimento = nascimento;}

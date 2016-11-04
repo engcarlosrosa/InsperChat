@@ -25,7 +25,7 @@ public class CriaDadosPessoais extends HttpServlet {
 		out.println("<form method='post'>");
 		out.println("Nome: <input type='text' name='nome'><br>");
 		out.println("Sobrenome: <input type='text' name='sobrenome'><br>");
-		out.println("Sexo: <input type='number' name='sexo'><br>");
+		out.println("Sexo: <input type='text' name='sexo'><br>");
 		out.println("Nascimento: <input type='date' name='nascimento'><br>");
 		out.println("Email: <input type='text' name='email'><br>");
 		out.println("Senha <input type='text' name='senha'><br>");
@@ -50,7 +50,7 @@ public class CriaDadosPessoais extends HttpServlet {
 			DadosPessoais dadosPessoal = new DadosPessoais();
 			dadosPessoal.setNome(request.getParameter("nome"));
 			dadosPessoal.setSobrenome(request.getParameter("sobrenome"));
-			dadosPessoal.setSexo(Integer.valueOf(request.getParameter("sexo")));
+			dadosPessoal.setSexo(request.getParameter("sexo"));
 			String nascimento = request.getParameter("nascimento");
 			Date data = null;
 			try {

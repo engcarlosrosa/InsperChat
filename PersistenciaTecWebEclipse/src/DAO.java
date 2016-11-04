@@ -35,7 +35,7 @@ public class DAO {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, dadosPessoal.getNome());
 			stmt.setString(2,dadosPessoal.getSobrenome());
-			stmt.setLong(3, dadosPessoal.getSexo());
+			stmt.setString(3, dadosPessoal.getSexo());
 			stmt.setDate(4, new Date(dadosPessoal.getNascimento().getTimeInMillis()));
 			stmt.setString(5, dadosPessoal.getEmail());
 			stmt.setString(6, dadosPessoal.getSenha());
@@ -80,7 +80,7 @@ public class DAO {
 				dadosPessoal.setId(rs.getInt("id"));
 				dadosPessoal.setNome(rs.getString("nome"));
 				dadosPessoal.setSobrenome(rs.getString("sobrenome"));
-				dadosPessoal.setSexo(rs.getInt("sexo"));
+				dadosPessoal.setSexo(rs.getString("sexo"));
 				Calendar data = Calendar.getInstance();
 				data.setTime(rs.getDate("nascimento"));
 				dadosPessoal.setEmail(rs.getString("email"));
@@ -141,7 +141,7 @@ public class DAO {
 				dadosPessoais.setId(rs.getInt("id"));
 				dadosPessoais.setNome(rs.getString("nome"));
 				dadosPessoais.setSobrenome(rs.getString("sobrenome"));
-				dadosPessoais.setSexo(rs.getInt("sexo"));
+				dadosPessoais.setSexo(rs.getString("sexo"));
 				Calendar dataNascimento = Calendar.getInstance();
 				dataNascimento.setTime(rs.getDate("nascimento"));
 				dadosPessoais.setNascimento(dataNascimento);
@@ -208,7 +208,7 @@ public class DAO {
 			stmt = connection.prepareStatement(sql);
 			stmt.setString(1, dadosPessoal.getNome());
 			stmt.setString(2, dadosPessoal.getSobrenome());
-			stmt.setInt(2, dadosPessoal.getSexo());
+			stmt.setString(2, dadosPessoal.getSexo());
 			stmt.setDate(3, new Date(dadosPessoal.getNascimento().getTimeInMillis()));
 			stmt.setString(4, dadosPessoal.getEmail());
 			stmt.setString(5, dadosPessoal.getSenha());
@@ -264,7 +264,7 @@ public class DAO {
 				dadosPessoais.setId(rs.getInt("id"));
 				dadosPessoais.setNome(rs.getString("nome"));
 				dadosPessoais.setSobrenome(rs.getString("sobrenome"));
-				dadosPessoais.setSexo(rs.getInt("sexo"));
+				dadosPessoais.setSexo(rs.getString("sexo"));
 				Calendar dataNascimento = Calendar.getInstance();
 				dataNascimento.setTime(rs.getDate("nascimento"));
 				dadosPessoais.setNascimento(dataNascimento);
