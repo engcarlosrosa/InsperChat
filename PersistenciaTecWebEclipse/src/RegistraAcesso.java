@@ -36,7 +36,7 @@ public class RegistraAcesso extends HttpServlet {
 		DAO dao = new DAO();
 		
 		Acessos acesso = new Acessos();
-		acesso.setDadosPessoal_id(Integer.valueOf(request.getParameter("dadosPessoal_id")));
+		acesso.setDadosPessoal_id(request.getParameter("dadosPessoal_id"));
 		String dataS = request.getParameter("data");
 		Date dataT = null;
 		try{
