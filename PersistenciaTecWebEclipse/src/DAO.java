@@ -25,7 +25,7 @@ public class DAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
+		/*try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection(
 	"jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/ad_700d92b6f5ca64b",
@@ -33,7 +33,7 @@ public class DAO {
 	"c3997232");
 		} catch (SQLException | ClassNotFoundException e) {
 			throw new RuntimeException(e);
-		}
+		}*/
 	}
 	
 	public void adicionaDadosPessoais(DadosPessoais dadosPessoal){
@@ -160,8 +160,8 @@ public class DAO {
 				dadosPessoal.setNome(rs.getString("nome"));
 				dadosPessoal.setSobrenome(rs.getString("sobrenome"));
 				dadosPessoal.setSexo(rs.getString("sexo"));
-				Calendar data = Calendar.getInstance();
-				data.setTime(rs.getDate("nascimento"));
+				//Calendar data = Calendar.getInstance();
+				//data.setTime(rs.getDate("nascimento"));
 				dadosPessoal.setEmail(rs.getString("email"));
 				dadosPessoal.setSenha(rs.getString("senha"));
 				dadosPessoal.setNumeroMatricula(rs.getString("numeroMatricula"));

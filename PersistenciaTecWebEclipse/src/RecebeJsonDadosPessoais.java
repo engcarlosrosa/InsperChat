@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import com.google.gson.Gson;
+
 //import com.google.gson.Gson;
 
 @WebServlet("/RecebeJsonDadosPessoais")
@@ -39,9 +41,9 @@ public class RecebeJsonDadosPessoais extends HttpServlet{
 			dadosPessoal.setProfissao((String) jsonObject.get("profissao"));
 			dadosPessoal.setRg((String) jsonObject.get("rg"));
 			dao.adicionaDadosPessoais(dadosPessoal);
-			//String json = new Gson().toJson(dao.adicionaDadosPessoais(dadosPessoal));
-			//System.out.println(json);
-			//response.getWriter().write(json);
+			String json = new Gson().toJson(dao.getListaDadosPessoais());
+			System.out.println(json);
+			response.getWriter().write(json);
 		} catch (org.json.simple.parser.ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
