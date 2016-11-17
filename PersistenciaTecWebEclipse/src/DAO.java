@@ -270,7 +270,7 @@ public class DAO {
 				dadosPessoais.setSobrenome(rs.getString("sobrenome"));
 				dadosPessoais.setSexo(rs.getString("sexo"));
 				dadosPessoais.setEmail(rs.getString("email"));
-				dadosPessoais.setSenha(rs.getString("senha"));
+				//dadosPessoais.setSenha(rs.getString("senha"));
 				dadosPessoais.setNumeroMatricula(rs.getString("numeroMatricula"));
 				dadosPessoais.setProfissao(rs.getString("profissao"));
 				dadosPessoais.setRg(rs.getString("rg"));
@@ -288,4 +288,41 @@ public class DAO {
 		return dadosPessoais;
 		
 	}
+	
+	public DadosPessoais dadosEmail(String email){
+
+		DadosPessoais dadosPessoais = new DadosPessoais();
+		
+		PreparedStatement stmt;
+		
+		
+		try {
+			stmt = connection.prepareStatement("SELECT * FROM DadosPessoais WHERE email=?");
+			stmt.setString(1,email);
+			ResultSet rs = stmt.executeQuery();
+			while (rs.next()) {
+				
+				dadosPessoais.setId(rs.getInt("id"));
+				dadosPessoais.setNome(rs.getString("nome"));
+				dadosPessoais.setSobrenome(rs.getString("sobrenome"));
+				dadosPessoais.setSexo(rs.getString("sexo"));
+				dadosPessoais.setEmail(rs.getString("email"));
+				dadosPessoais.setNumeroMatricula(rs.getString("numeroMatricula"));
+				dadosPessoais.setProfissao(rs.getString("profissao"));
+				dadosPessoais.setRg(rs.getString("rg"));
+				
+
+			}
+			rs.close();
+			stmt.close();
+		}catch (SQLException e){
+			e.printStackTrace();
+
+	
+		}
+		
+		return dadosPessoais;
+		
+	}
+	
 }
