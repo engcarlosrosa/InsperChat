@@ -299,7 +299,7 @@ public class DAO {
 		
 	}
 	
-	public DadosPessoais dadosEmail(String email){
+	public DadosPessoais dadosEmail(String rg){
 
 		DadosPessoais dadosPessoais = new DadosPessoais();
 		
@@ -307,8 +307,8 @@ public class DAO {
 		
 		
 		try {
-			stmt = connection.prepareStatement("SELECT * FROM DadosPessoais WHERE email=?");
-			stmt.setString(1,email);
+			stmt = connection.prepareStatement("SELECT * FROM DadosPessoais WHERE rg=?");
+			stmt.setString(1,rg);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				

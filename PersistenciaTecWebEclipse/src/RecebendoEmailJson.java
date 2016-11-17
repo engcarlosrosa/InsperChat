@@ -27,9 +27,9 @@ public class RecebendoEmailJson extends HttpServlet {
 		JSONParser parser = new JSONParser();
 		try {
 			jsonObject = (JSONObject) parser.parse(request.getParameter("json"));
-			String email = (String) jsonObject.get("email");
-			System.out.println(dao.dadosEmail(email));
-			String json = new Gson().toJson(dao.dadosEmail(email));
+			String rg = (String) jsonObject.get("rg");
+			System.out.println(dao.dadosEmail(rg));
+			String json = new Gson().toJson(dao.dadosEmail(rg));
 			System.out.println(json);
 			response.getWriter().write(json);
 			
