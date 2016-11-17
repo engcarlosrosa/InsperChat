@@ -80,9 +80,11 @@ public class DAO {
             		+ "values(?,?)";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1,fotosDoUsuario.getDadosPessoal_id());
+            System.out.print("ou");
             stmt.setBinaryStream(2, filePart30.getInputStream());
             stmt.execute();
             stmt.close();
+            System.out.print("oi");
             
         } catch (SQLException e) {e.printStackTrace();}
 	}

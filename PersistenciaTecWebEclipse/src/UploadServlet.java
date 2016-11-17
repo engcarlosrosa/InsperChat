@@ -51,7 +51,7 @@ public class UploadServlet extends HttpServlet {
     	   e.printStackTrace();
        }
 	   */fotosDoUsuario.setDadosPessoal_id("1");
-       System.out.println(request.getParameter("json"));
+       //System.out.println(request.getParameter("json"));
       // Check that we have a file upload request
       isMultipart = ServletFileUpload.isMultipartContent(request);
       response.setContentType("text/html");
@@ -82,6 +82,7 @@ public class UploadServlet extends HttpServlet {
       // Parse the request to get file items.
       List fileItems = upload.parseRequest(request);
       System.out.println(fileItems);
+      System.out.println("AA");
       // Process the uploaded file items
       Iterator i = fileItems.iterator();
 
@@ -110,8 +111,14 @@ public class UploadServlet extends HttpServlet {
                fileName.substring(fileName.lastIndexOf("\\")+1)) ;
             }
             fi.write( file ) ;
-            System.out.println(request.getPart("file"));
-            fotosDoUsuario.setFoto30((MultipartFile) request.getPart("file"));
+            System.out.print("oo");
+
+            //System.out.println(request.getPart("file"));
+
+
+            fotosDoUsuario.setFoto30((MultipartFile) file);
+            //System.out.print("oa");
+
             dao.adicionaFotosDoUsuario(fotosDoUsuario);
             out.println("Uploaded Filename: " + fileName + "<br>");
          }
@@ -121,7 +128,7 @@ public class UploadServlet extends HttpServlet {
    }catch(Exception ex) {
        System.out.println(ex);
    }
-      dao.close();
+      //dao.close();
    }
    public void doGet(HttpServletRequest request, 
                        HttpServletResponse response)
