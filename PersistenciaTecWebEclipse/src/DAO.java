@@ -83,6 +83,7 @@ public class DAO {
             stmt.setBinaryStream(2, filePart30.getInputStream());
             stmt.execute();
             stmt.close();
+            
         } catch (SQLException e) {e.printStackTrace();}
 	}
 	
@@ -285,7 +286,14 @@ public class DAO {
 	
 		}
 		
-		return dadosPessoais;
+		if(dadosPessoais.getNome() != null){
+			
+			return dadosPessoais;
+		}
+		else{
+			
+			return null;
+		}
 		
 	}
 	

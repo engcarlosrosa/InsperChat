@@ -13,14 +13,14 @@ PRIMARY KEY (id)
 
 CREATE TABLE Acessos (
 id  INT NOT NULL    AUTO_INCREMENT,
-dadosPessoal_id INT NOT NULL    REFERENCES DadosPessoais(id),
+dadosPessoal_id INT NOT NULL REFERENCES DadosPessoais(id),
 data    DATE,
 PRIMARY KEY (id)
 );
 
 
-CREATE TABLE MyPictures(
-id INT PRIMARY KEY,
-name VARCHAR(0),
-photo BLOB,
+CREATE TABLE Fotos(
+id INT PRIMARY KEY AUTO_INCREMENT,
+dadosPessoal_id INT NOT NULL REFERENCES DadosPessoais(id),
+foto30 MEDIUMBLOB,
 );
