@@ -14,6 +14,9 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.output.*;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.springframework.web.multipart.MultipartFile;
 
 public class UploadServlet extends HttpServlet {
    
@@ -22,6 +25,8 @@ public class UploadServlet extends HttpServlet {
    private int maxFileSize = 3000 * 1024;
    private int maxMemSize = 4 * 1024;
    private File file ;
+   private String dadosPessoal_id;
+   private FotosDoUsuario fotosDoUsuario;
 
    public void init( ){
       // Get the file location where it would be stored.
@@ -29,9 +34,24 @@ public class UploadServlet extends HttpServlet {
              getServletContext().getInitParameter("file-upload"); 
       //System.out.println("oi");
    }
-   public void doPost(HttpServletRequest request, 
+   public void service (HttpServletRequest request, 
                HttpServletResponse response)
               throws ServletException, java.io.IOException {
+	   
+       DAO dao = new DAO();
+       FotosDoUsuario fotosDoUsuario = new FotosDoUsuario();
+       /*JSONObject jsonObject;
+       JSONParser parser = new JSONParser();
+       
+       try{
+    	   jsonObject = (JSONObject) parser.parse(request.getParameter("json"));
+    	   System.out.println(request.getParameter("json"));
+    	   //fotosDoUsuario.setDadosPessoal_id((String) jsonObject.get("dadosPessoal_id"));
+       } catch(org.json.simple.parser.ParseException e){
+    	   e.printStackTrace();
+       }
+	   */fotosDoUsuario.setDadosPessoal_id("1");
+       System.out.println(request.getParameter("json"));
       // Check that we have a file upload request
       isMultipart = ServletFileUpload.isMultipartContent(request);
       response.setContentType("text/html");
@@ -57,11 +77,11 @@ public class UploadServlet extends HttpServlet {
       ServletFileUpload upload = new ServletFileUpload(factory);
       // maximum file size to be uploaded.
       upload.setSizeMax( maxFileSize );
-
+      
       try{ 
       // Parse the request to get file items.
       List fileItems = upload.parseRequest(request);
-	
+      System.out.println(fileItems);
       // Process the uploaded file items
       Iterator i = fileItems.iterator();
 
@@ -90,6 +110,9 @@ public class UploadServlet extends HttpServlet {
                fileName.substring(fileName.lastIndexOf("\\")+1)) ;
             }
             fi.write( file ) ;
+            System.out.println(request.getPart("file"));
+            fotosDoUsuario.setFoto30((MultipartFile) request.getPart("file"));
+            dao.adicionaFotosDoUsuario(fotosDoUsuario);
             out.println("Uploaded Filename: " + fileName + "<br>");
          }
       }
@@ -98,6 +121,7 @@ public class UploadServlet extends HttpServlet {
    }catch(Exception ex) {
        System.out.println(ex);
    }
+      dao.close();
    }
    public void doGet(HttpServletRequest request, 
                        HttpServletResponse response)

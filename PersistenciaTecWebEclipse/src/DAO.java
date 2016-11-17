@@ -74,74 +74,13 @@ public class DAO {
 	}
 	
 	public void adicionaFotosDoUsuario(FotosDoUsuario fotosDoUsuario) throws IOException{
-		MultipartFile filePart1 = fotosDoUsuario.getFoto1();
-		MultipartFile filePart2 = fotosDoUsuario.getFoto2();
-		MultipartFile filePart3 = fotosDoUsuario.getFoto3();
-		MultipartFile filePart4 = fotosDoUsuario.getFoto4();
-		MultipartFile filePart5 = fotosDoUsuario.getFoto5();
-		MultipartFile filePart6 = fotosDoUsuario.getFoto6();
-		MultipartFile filePart7 = fotosDoUsuario.getFoto7();
-		MultipartFile filePart8 = fotosDoUsuario.getFoto8();
-		MultipartFile filePart9 = fotosDoUsuario.getFoto9();
-		MultipartFile filePart10 = fotosDoUsuario.getFoto10();
-		MultipartFile filePart11 = fotosDoUsuario.getFoto11();
-		MultipartFile filePart12 = fotosDoUsuario.getFoto12();
-		MultipartFile filePart13 = fotosDoUsuario.getFoto13();
-		MultipartFile filePart14 = fotosDoUsuario.getFoto14();
-		MultipartFile filePart15 = fotosDoUsuario.getFoto15();
-		MultipartFile filePart16 = fotosDoUsuario.getFoto16();
-		MultipartFile filePart17 = fotosDoUsuario.getFoto17();
-		MultipartFile filePart18 = fotosDoUsuario.getFoto18();
-		MultipartFile filePart19 = fotosDoUsuario.getFoto19();
-		MultipartFile filePart20 = fotosDoUsuario.getFoto20();
-		MultipartFile filePart21 = fotosDoUsuario.getFoto21();
-		MultipartFile filePart22 = fotosDoUsuario.getFoto22();
-		MultipartFile filePart23 = fotosDoUsuario.getFoto23();
-		MultipartFile filePart24 = fotosDoUsuario.getFoto24();
-		MultipartFile filePart25 = fotosDoUsuario.getFoto25();
-		MultipartFile filePart26 = fotosDoUsuario.getFoto26();
-		MultipartFile filePart27 = fotosDoUsuario.getFoto27();
-		MultipartFile filePart28 = fotosDoUsuario.getFoto28();
-		MultipartFile filePart29 = fotosDoUsuario.getFoto29();
 		MultipartFile filePart30 = fotosDoUsuario.getFoto30();
 		try {
-            String sql = "INSERT INTO fotos (dadosPessoal_id, foto1, foto2, "
-            		+ "foto3, foto4, foto5, foto6, foto7, foto8, foto9, foto10, foto11, "
-            		+ "foto12, foto13, foto14, foto1516, foto17, foto18, foto19, foto20, foto21, "
-            		+ "foto22, foto23, foto24, foto25, foto26, foto27, foto28, foto29, foto30) "
-            		+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO fotos (dadosPessoal_id, foto30) "
+            		+ "values(?,?)";
             PreparedStatement stmt = connection.prepareStatement(sql);
             stmt.setString(1,fotosDoUsuario.getDadosPessoal_id());
-            stmt.setBinaryStream(2, filePart1.getInputStream());
-            stmt.setBinaryStream(3, filePart2.getInputStream());
-            stmt.setBinaryStream(4, filePart3.getInputStream());
-            stmt.setBinaryStream(5, filePart4.getInputStream());
-            stmt.setBinaryStream(6, filePart5.getInputStream());
-            stmt.setBinaryStream(7, filePart6.getInputStream());
-            stmt.setBinaryStream(8, filePart7.getInputStream());
-            stmt.setBinaryStream(9, filePart8.getInputStream());
-            stmt.setBinaryStream(10, filePart9.getInputStream());
-            stmt.setBinaryStream(11, filePart10.getInputStream());
-            stmt.setBinaryStream(12, filePart11.getInputStream());
-            stmt.setBinaryStream(13, filePart12.getInputStream());
-            stmt.setBinaryStream(14, filePart13.getInputStream());
-            stmt.setBinaryStream(15, filePart14.getInputStream());
-            stmt.setBinaryStream(16, filePart15.getInputStream());
-            stmt.setBinaryStream(17, filePart16.getInputStream());
-            stmt.setBinaryStream(18, filePart17.getInputStream());
-            stmt.setBinaryStream(19, filePart18.getInputStream());
-            stmt.setBinaryStream(20, filePart19.getInputStream());
-            stmt.setBinaryStream(21, filePart20.getInputStream());
-            stmt.setBinaryStream(22, filePart21.getInputStream());
-            stmt.setBinaryStream(23, filePart22.getInputStream());
-            stmt.setBinaryStream(24, filePart23.getInputStream());
-            stmt.setBinaryStream(25, filePart24.getInputStream());
-            stmt.setBinaryStream(26, filePart25.getInputStream());
-            stmt.setBinaryStream(27, filePart26.getInputStream());
-            stmt.setBinaryStream(28, filePart27.getInputStream());
-            stmt.setBinaryStream(29, filePart28.getInputStream());
-            stmt.setBinaryStream(30, filePart29.getInputStream());
-            stmt.setBinaryStream(31, filePart30.getInputStream());
+            stmt.setBinaryStream(2, filePart30.getInputStream());
             stmt.execute();
             stmt.close();
         } catch (SQLException e) {e.printStackTrace();}
