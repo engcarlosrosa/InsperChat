@@ -1,9 +1,11 @@
+import javax.servlet.http.Part;
+
 import org.springframework.web.multipart.MultipartFile;
 public class FotosDoUsuario {
 	private Integer id;
 	private String dadosPessoal_id;
 
-	private MultipartFile foto30;
+	private Part foto30;
 	public Integer getId() {
 		return id;
 	}
@@ -17,10 +19,10 @@ public class FotosDoUsuario {
 		this.dadosPessoal_id = dadosPessoal_id;
 	}
 
-	public MultipartFile getFoto30() {
+	public Part getFoto30() {
 		return foto30;
 	}
-	public void setFoto30(MultipartFile foto30) {
+	public void setFoto30(Part foto30) {
 		this.foto30 = foto30;
 	}
 

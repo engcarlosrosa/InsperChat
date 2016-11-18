@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
@@ -8,6 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import javax.servlet.http.Part;
+
 import org.springframework.web.multipart.MultipartFile;
 
 public class DAO {
@@ -74,7 +78,7 @@ public class DAO {
 	}
 	
 	public void adicionaFotosDoUsuario(FotosDoUsuario fotosDoUsuario) throws IOException{
-		MultipartFile filePart30 = fotosDoUsuario.getFoto30();
+		Part filePart30 = fotosDoUsuario.getFoto30();
 		try {
             String sql = "INSERT INTO fotos (dadosPessoal_id, foto30) "
             		+ "values(?,?)";
@@ -172,6 +176,25 @@ public class DAO {
 			e.printStackTrace();
 		}
 		return dadosPessoais;
+	}
+	
+	public byte[] getFoto(String dadosPessoal_id){
+		byte[] imgData = null;
+		try{
+			PreparedStatement stmt = connection.prepareStatement(
+					"SELECT * FROM fotos WHERE dadosPessoal_id=?");
+			stmt.setString(1, dadosPessoal_id);
+			ResultSet rs = stmt.executeQuery();
+			if(rs.next()){
+				Blob image = rs.getBlob("foto30");
+				imgData = image.getBytes(1, (int) image.length());
+			}
+			rs.close();
+			stmt.close();
+		}catch(SQLException e){
+			System.out.println(e);
+		}
+		return imgData;
 	}
 	
 	public List<AcessosDetalhados> getListaAcessosDetalhados(){
