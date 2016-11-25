@@ -23,13 +23,13 @@ public class DAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	    try {
+	    /*try {
 			connection = DriverManager.getConnection("jdbc:mysql://localhost/meus_dados", "root", "123456");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		/*try {
+		}*/
+		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			connection = DriverManager.getConnection(
 	"jdbc:mysql://us-cdbr-iron-east-04.cleardb.net/ad_700d92b6f5ca64b",
@@ -37,7 +37,7 @@ public class DAO {
 	"c3997232");
 		} catch (SQLException | ClassNotFoundException e) {
 			throw new RuntimeException(e);
-		}*/
+		}
 	}
 	
 	public void adicionaDadosPessoais(DadosPessoais dadosPessoal){
@@ -334,7 +334,7 @@ public class DAO {
 			stmt.setString(1,rg);
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
-				
+				System.out.println("oi");
 				dadosPessoais.setId(rs.getInt("id"));
 				dadosPessoais.setNome(rs.getString("nome"));
 				dadosPessoais.setSobrenome(rs.getString("sobrenome"));
@@ -352,9 +352,14 @@ public class DAO {
 			e.printStackTrace();
 
 	
+		} if(dadosPessoais.getNome() != null){
+			
+			return dadosPessoais;
 		}
-		
-		return dadosPessoais;
+		else{
+			
+			return null;
+		}
 		
 	}
 	
