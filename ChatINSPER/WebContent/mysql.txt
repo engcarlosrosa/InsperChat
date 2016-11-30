@@ -1,0 +1,15 @@
+CREATE TABLE Mensagens(
+id  INT NOT NULL    AUTO_INCREMENT,
+usuario VARCHAR(32) NOT NULL,
+mensagem    VARCHAR(255)    NOT NULL,
+data TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+PRIMARY KEY (ID)
+);
+
+INSERT INTO Mensagens (usuario, mensagem) VALUES ('Carlos', 'Deus é contigo, Carlos');
+
+create table usuario (
+login VARCHAR(255),
+senha VARCHAR(255),
+foto MEDIUMBLOB
+);
