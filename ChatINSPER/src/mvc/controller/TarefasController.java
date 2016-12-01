@@ -10,7 +10,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import mvc.model.Mensagem;
-import mvc.model.Tarefa;
 import mvc.model.TarefaDAO;
 import mvc.model.UsuarioDAO;
 
