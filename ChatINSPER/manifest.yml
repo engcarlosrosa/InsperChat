@@ -1,0 +1,10 @@
+---
+applications:
+- name: ChatINSPER
+  memory: 512M
+  host: ChatINSPER
+  domain: mybluemix.net
+  services:
+  - carlosteste-cloudantNoSQLDB
+  - ClearDB MySQL Database-4d
+  - carlos-insper-demo-cloudantNoSQLDB
